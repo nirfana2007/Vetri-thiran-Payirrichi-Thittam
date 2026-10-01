@@ -1,0 +1,40 @@
+import os
+from fpdf import FPDF
+
+FONT_DIR = "static/fonts"
+
+regular_font = os.path.join(
+    FONT_DIR,
+    "DejaVuSans.ttf"
+)
+
+bold_font = os.path.join(
+    FONT_DIR,
+    "DejaVuSans-Bold.ttf"
+)
+
+pdf = FPDF()
+
+pdf.add_font(
+    "DejaVu",
+    "",
+    regular_font
+)
+
+pdf.add_font(
+    "DejaVu",
+    "B",
+    bold_font
+)
+
+pdf.add_page()
+
+pdf.set_font("DejaVu", "B", 20)
+pdf.cell(0, 15, "ComicCraft", ln=True)
+
+pdf.set_font("DejaVu", "", 12)
+pdf.multi_cell(
+    0,
+    8,
+    "Your AI-generated comic story goes here."
+)

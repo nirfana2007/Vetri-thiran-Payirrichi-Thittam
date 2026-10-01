@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comic Craft</title>
+</head>
+
+<body>
+
+<h1>🎨 Comic Craft</h1>
+
+<input id="title" placeholder="Comic title">
+
+<br><br>
+
+<textarea id="prompt"
+          rows="8"
+          cols="60"
+          placeholder="Story prompt"></textarea>
+
+<br><br>
+
+<button onclick="submitComic()">Submit</button>
+<button onclick="generateImage()">Generate Image</button>
+
+<div id="result"></div>
+
+<script>
+
+function submitComic() {
+    document.getElementById("result").innerHTML =
+        "<h2>✅ Submitted Successfully!</h2>";
+}
+
+function generateImage() {
+
+    document.getElementById("result").innerHTML = `
+        <h2>🎨 Comic Image</h2>
+
+        <svg width="600" height="400"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <rect width="600" height="400"
+                  fill="lightblue"/>
+
+            <circle cx="300" cy="150"
+                    r="80"
+                    fill="yellow"/>
+
+            <text x="300" y="300"
+                  text-anchor="middle"
+                  font-size="32">
+                My Comic
+            </text>
+
+        </svg>
+    `;
+}
+
+</script>
+
+</body>
+</html>

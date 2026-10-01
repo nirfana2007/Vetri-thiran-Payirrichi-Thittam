@@ -1,0 +1,36 @@
+# ==========================================
+# ComicCraft Configuration
+# ==========================================
+
+APP_NAME=ComicCraft
+APP_VERSION=1.0.0
+DEBUG=true
+HOST=127.0.0.1
+PORT=8000
+
+# ==========================================
+# Gemini
+# ==========================================
+
+GEMINI_API_KEY=AQ.Ab8RN6LtnHPZ9QEvHeEr9QaDf3AfYwWGrFcKavtCmogxL9xYQw
+
+GEMINI_FLASH_MODEL=gemini-2.5-flash
+GEMINI_PRO_MODEL=gemini-2.5-pro
+
+# ==========================================
+# Hugging Face
+# ==========================================
+
+HF_API_KEY=
+
+HF_MODEL_ID=stabilityai/stable-diffusion-xl-base-1.0
+
+HF_TIMEOUT_SECONDS=120
+
+# ==========================================
+# Optional Local Diffusers
+# ==========================================
+
+USE_LOCAL_DIFFUSERS=false
+
+DIFFUSION_STEPS=20

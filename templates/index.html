@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ComicCraft - AI Comic Story Creator"
+    >
+
+    <title>ComicCraft — AI Comic Story Creator</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="nav-container">
+
+            <a
+                href="/"
+                class="logo"
+            >
+                <span class="logo-burst">💥</span>
+                COMICCRAFT
+            </a>
+
+
+            <nav class="navigation">
+
+                <a
+                    href="/"
+                    class="nav-link active"
+                >
+                    Create
+                </a>
+
+                <a
+                    href="/docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="nav-link"
+                >
+                    API Docs
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-container">
+
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    AI COMIC STORY CREATOR
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    Turn your idea into a
+
+                    <span class="hero-highlight">
+                        5-panel comic.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Create an original comic story with
+                    AI-generated characters, scenes,
+                    narration, dialogue and illustrations.
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="hero-burst"
+                aria-hidden="true"
+            >
+
+                <span>
+                    POW!
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+             ================================================= -->
+
+        {% if error_message %}
+
+        <div
+            class="error-message"
+            role="alert"
+        >
+
+            <div class="error-icon">
+                ⚠
+            </div>
+
+            <div>
+
+                <strong>
+                    Comic generation failed
+                </strong>
+
+                <p>
+                    {{ error_message }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             COMIC CREATOR CARD
+             ================================================= -->
+
+        <section class="creator-card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-number">
+                        01
+                    </div>
+
+                    <h2>
+                        Create Your Story
+                    </h2>
+
+                    <p>
+                        Tell ComicCraft what you want
+                        your comic to be about.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 FORM
+                 ============================================= -->
+
+            <form
+                id="comicForm"
+                action="/generate"
+                method="POST"
+                novalidate
+            >
+
+
+                <!-- =========================================
+                     STORY PROMPT
+                     ========================================= -->
+
+                <div class="form-group">
+
+                    <label
+                        for="story_prompt"
+                        class="form-label"
+                    >
+                        Story Prompt
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <textarea
+                        id="story_prompt"
+                        name="story_prompt"
+                        class="form-control story-input"
+                        placeholder="Example: A brave fox discovers a mysterious glowing door in an enchanted forest..."
+                        minlength="3"
+                        maxlength="3000"
+                        required
+                    ></textarea>
+
+
+                    <div class="field-footer">
+
+                        <span class="help-text">
+                            Describe the adventure
+                            you want to create.
+                        </span>
+
+                        <span
+                            id="promptCounter"
+                            class="character-counter"
+                        >
+                            0 / 3000
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CHARACTER + SETTING
+                     ========================================= -->
+
+                <div class="form-grid">
+
+
+                    <!-- CHARACTER -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="character_name"
+                            class="form-label"
+                        >
+                            Main Character Name
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            id="character_name"
+                            name="character_name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Example: Leo"
+                            minlength="1"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- SETTING -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="setting"
+                            class="form-label"
+                        >
+                            Setting
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="setting"
+                            name="setting"
+                            class="form-control"
+                            required
+                        >
+
+                            <option value="School">
+                                School
+                            </option>
+
+                            <option
+                                value="Forest"
+                                selected
+                            >
+                                Enchanted Forest
+                            </option>
+
+                            <option value="Space">
+                                Outer Space
+                            </option>
+
+                            <option value="City">
+                                Futuristic City
+                            </option>
+
+                            <option value="Beach">
+                                Beach
+                            </option>
+
+                            <option value="Castle">
+                                Magical Castle
+                            </option>
+
+                            <option value="Desert">
+                                Desert
+                            </option>
+
+                            <option value="Custom">
+                                Custom Setting
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CUSTOM SETTING
+                     ========================================= -->
+
+                <div
+                    id="customSettingWrapper"
+                    class="form-group hidden"
+                >
+
+                    <label
+                        for="custom_setting"
+                        class="form-label"
+                    >
+                        Custom Setting
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        id="custom_setting"
+                        name="custom_setting"
+                        type="text"
+                        class="form-control"
+                        placeholder="Example: An underwater city made of glass"
+                        maxlength="150"
+                    >
+
+                </div>
+
+
+                <!-- =========================================
+                     TONE + ART STYLE
+                     ========================================= -->
+
+                <div class="form-grid">
+
+
+                    <!-- TONE -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="tone"
+                            class="form-label"
+                        >
+                            Story Tone
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="tone"
+                            name="tone"
+                            class="form-control"
+                            required
+                        >
+
+                            <option selected>
+                                Light-hearted
+                            </option>
+
+                            <option>
+                                Funny
+                            </option>
+
+                            <option>
+                                Dramatic
+                            </option>
+
+                            <option>
+                                Adventurous
+                            </option>
+
+                            <option>
+                                Mysterious
+                            </option>
+
+                            <option>
+                                Poetic
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ART STYLE -->
+
+                    <div class="form-group">
+
+                        <label
+                            for="art_style"
+                            class="form-label"
+                        >
+                            Art Style
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <select
+                            id="art_style"
+                            name="art_style"
+                            class="form-control"
+                            required
+                        >
+
+                            <option selected>
+                                Comic Book
+                            </option>
+
+                            <option>
+                                Anime
+                            </option>
+
+                            <option>
+                                Pixel Art
+                            </option>
+
+                            <option>
+                                Realistic
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     GENERATE BUTTON
+                     ========================================= -->
+
+                <div class="generate-area">
+
+                    <button
+                        id="generateButton"
+                        type="submit"
+                        class="generate-button"
+                    >
+
+                        <span
+                            id="buttonIcon"
+                            class="button-icon"
+                        >
+                            🚀
+                        </span>
+
+                        <span id="buttonText">
+                            Generate Comic
+                        </span>
+
+                    </button>
+
+
+                    <p class="generate-note">
+
+                        Your comic will contain
+                        <strong>5 panels</strong>,
+                        AI-generated artwork,
+                        dialogue and narration.
+
+                    </p>
+
+                </div>
+
+
+                <!-- =========================================
+                     LOADING STATE
+                     ========================================= -->
+
+                <div
+                    id="loadingState"
+                    class="loading-state hidden"
+                    aria-live="polite"
+                >
+
+                    <div class="loading-animation">
+
+                        <div class="spinner"></div>
+
+                    </div>
+
+
+                    <div class="loading-content">
+
+                        <strong>
+                            Creating your comic...
+                        </strong>
+
+                        <p id="loadingMessage">
+                            Preparing your story.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             HOW IT WORKS
+             ================================================= -->
+
+        <section class="workflow-section">
+
+            <div class="section-heading">
+
+                <div class="eyebrow">
+                    HOW IT WORKS
+                </div>
+
+                <h2>
+                    From idea to comic.
+                </h2>
+
+            </div>
+
+
+            <div class="workflow-grid">
+
+
+                <article class="workflow-card">
+
+                    <div class="workflow-number">
+                        01
+                    </div>
+
+                    <div class="workflow-icon">
+                        ✍️
+                    </div>
+
+                    <h3>
+                        Your Idea
+                    </h3>
+
+                    <p>
+                        Describe the story,
+                        character, setting,
+                        tone and visual style.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <div class="workflow-number">
+                        02
+                    </div>
+
+                    <div class="workflow-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        AI Story
+                    </h3>
+
+                    <p>
+                        AI turns your idea into
+                        a connected five-panel
+                        comic script.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <div class="workflow-number">
+                        03
+                    </div>
+
+                    <div class="workflow-icon">
+                        🎨
+                    </div>
+
+                    <h3>
+                        AI Artwork
+                    </h3>
+
+                    <p>
+                        Each panel receives an
+                        illustration while keeping
+                        the story visually consistent.
+                    </p>
+
+                </article>
+
+
+                <article class="workflow-card">
+
+                    <div class="workflow-number">
+                        04
+                    </div>
+
+                    <div class="workflow-icon">
+                        📕
+                    </div>
+
+                    <h3>
+                        Your Comic
+                    </h3>
+
+                    <p>
+                        Preview the finished comic
+                        and export it as a PDF.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-container">
+
+            <span>
+                © ComicCraft
+            </span>
+
+            <span>
+                AI Comic Story Creator
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /*
+         * ----------------------------------------------------
+         * DOM ELEMENTS
+         * ----------------------------------------------------
+         */
+
+        const form =
+            document.getElementById(
+                "comicForm"
+            );
+
+        const storyPrompt =
+            document.getElementById(
+                "story_prompt"
+            );
+
+        const characterName =
+            document.getElementById(
+                "character_name"
+            );
+
+        const setting =
+            document.getElementById(
+                "setting"
+            );
+
+        const customSettingWrapper =
+            document.getElementById(
+                "customSettingWrapper"
+            );
+
+        const customSetting =
+            document.getElementById(
+                "custom_setting"
+            );
+
+        const generateButton =
+            document.getElementById(
+                "generateButton"
+            );
+
+        const buttonText =
+            document.getElementById(
+                "buttonText"
+            );
+
+        const buttonIcon =
+            document.getElementById(
+                "buttonIcon"
+            );
+
+        const loadingState =
+            document.getElementById(
+                "loadingState"
+            );
+
+        const loadingMessage =
+            document.getElementById(
+                "loadingMessage"
+            );
+
+        const promptCounter =
+            document.getElementById(
+                "promptCounter"
+            );
+
+
+        /*
+         * ----------------------------------------------------
+         * CUSTOM SETTING
+         * ----------------------------------------------------
+         */
+
+        function updateCustomSetting() {
+
+            const isCustom =
+                setting.value === "Custom";
+
+
+            customSettingWrapper
+                .classList
+                .toggle(
+                    "hidden",
+                    !isCustom
+                );
+
+
+            customSetting.required =
+                isCustom;
+
+
+            if (!isCustom) {
+
+                customSetting.value = "";
+
+            }
+
+        }
+
+
+        setting.addEventListener(
+            "change",
+            updateCustomSetting
+        );
+
+
+        /*
+         * ----------------------------------------------------
+         * CHARACTER COUNTER
+         * ----------------------------------------------------
+         */
+
+        function updatePromptCounter() {
+
+            const length =
+                storyPrompt.value.length;
+
+
+            promptCounter.textContent =
+                `${length} / 3000`;
+
+        }
+
+
+        storyPrompt.addEventListener(
+            "input",
+            updatePromptCounter
+        );
+
+
+        /*
+         * ----------------------------------------------------
+         * VALIDATION
+         * ----------------------------------------------------
+         */
+
+        function validateForm() {
+
+            if (
+                storyPrompt.value
+                    .trim()
+                    .length < 3
+            ) {
+
+                alert(
+                    "Please enter a story prompt."
+                );
+
+                storyPrompt.focus();
+
+                return false;
+
+            }
+
+
+            if (
+                characterName.value
+                    .trim()
+                    .length < 1
+            ) {
+
+                alert(
+                    "Please enter a character name."
+                );
+
+                characterName.focus();
+
+                return false;
+
+            }
+
+
+            if (
+                setting.value === "Custom" &&
+                customSetting.value
+                    .trim()
+                    .length < 1
+            ) {
+
+                alert(
+                    "Please enter your custom setting."
+                );
+
+                customSetting.focus();
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+
+
+        /*
+         * ----------------------------------------------------
+         * LOADING MESSAGES
+         * ----------------------------------------------------
+         */
+
+        const loadingMessages = [
+
+            "Creating your five-panel story...",
+
+            "Expanding the comic script...",
+
+            "Designing your comic panels...",
+
+            "Generating AI artwork...",
+
+            "Building your comic preview...",
+
+            "Preparing your PDF..."
+
+        ];
+
+
+        let loadingIndex = 0;
+
+        let loadingTimer = null;
+
+
+        function startLoadingMessages() {
+
+            loadingIndex = 0;
+
+
+            loadingMessage.textContent =
+                loadingMessages[0];
+
+
+            loadingTimer =
+                setInterval(
+                    function () {
+
+                        loadingIndex =
+                            (
+                                loadingIndex + 1
+                            ) %
+                            loadingMessages.length;
+
+
+                        loadingMessage.textContent =
+                            loadingMessages[
+                                loadingIndex
+                            ];
+
+                    },
+                    2500
+                );
+
+        }
+
+
+        function stopLoadingMessages() {
+
+            if (loadingTimer) {
+
+                clearInterval(
+                    loadingTimer
+                );
+
+                loadingTimer = null;
+
+            }
+
+        }
+
+
+        /*
+         * ----------------------------------------------------
+         * FORM SUBMISSION
+         * ----------------------------------------------------
+         */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                if (!validateForm()) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                /*
+                 * Disable the button so the user
+                 * cannot accidentally submit twice.
+                 */
+
+                generateButton.disabled =
+                    true;
+
+
+                buttonIcon.textContent =
+                    "⏳";
+
+
+                buttonText.textContent =
+                    "Generating...";
+
+
+                loadingState
+                    .classList
+                    .remove(
+                        "hidden"
+                    );
+
+
+                startLoadingMessages();
+
+            }
+        );
+
+
+        /*
+         * ----------------------------------------------------
+         * INITIAL STATE
+         * ----------------------------------------------------
+         */
+
+        updateCustomSetting();
+
+        updatePromptCounter();
+
+    </script>
+
+</body>
+
+</html>

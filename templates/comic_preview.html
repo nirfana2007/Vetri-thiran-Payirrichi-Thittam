@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ComicCraft - Comic Preview</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f8;
+            color: #222;
+        }
+
+        /* Header */
+        .header {
+            background: #6c5ce7;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            padding: 9px 16px;
+            border: 1px solid white;
+            border-radius: 7px;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #6c5ce7;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            margin-bottom: 8px;
+            font-size: 34px;
+        }
+
+        .title p {
+            color: #666;
+        }
+
+        /* Comic page */
+        .comic-page {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .comic-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* Panels */
+        .panels {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fafafa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .panel img {
+            width: 100%;
+            display: block;
+        }
+
+        .panel-content {
+            padding: 15px;
+        }
+
+        .panel-number {
+            font-weight: bold;
+            color: #6c5ce7;
+            margin-bottom: 8px;
+        }
+
+        .panel-text {
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .export-btn {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        .export-btn:hover {
+            background: #5747c7;
+        }
+
+        .home-btn {
+            background: #ddd;
+            color: #333;
+        }
+
+        .home-btn:hover {
+            background: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+
+            .panels {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .comic-page {
+                padding: 15px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+
+        <div class="logo">
+            🎨 ComicCraft
+        </div>
+
+        <a href="/" class="back-btn">
+            ← Back
+        </a>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="container">
+
+        <div class="title">
+
+            <h1>Comic Preview</h1>
+
+            <p>
+                Review your AI-generated comic before exporting.
+            </p>
+
+        </div>
+
+
+        <!-- Comic -->
+        <section class="comic-page">
+
+            <h2 class="comic-title">
+                {{ title or "My Comic Story" }}
+            </h2>
+
+
+            <!-- Panels -->
+            <div class="panels">
+
+                {% for panel in panels %}
+
+                <div class="panel">
+
+                    {% if panel.image %}
+                    <img
+                        src="{{ panel.image }}"
+                        alt="Comic Panel {{ loop.index }}"
+                    >
+                    {% endif %}
+
+
+                    <div class="panel-content">
+
+                        <div class="panel-number">
+                            Panel {{ loop.index }}
+                        </div>
+
+                        {% if panel.text %}
+                        <div class="panel-text">
+                            {{ panel.text }}
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="actions">
+
+                <a
+                    href="/static/exports/comiccraft_comic.pdf"
+                    class="btn export-btn"
+                    download
+                >
+                    📥 Download PDF
+                </a>
+
+                <a
+                    href="/"
+                    class="btn home-btn"
+                >
+                    🏠 Create New Comic
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

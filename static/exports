@@ -1,0 +1,77 @@
+from pathlib import Path
+from functools import lru_cache
+from pydantic_settings import BaseSettings
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+class Settings(BaseSettings):
+
+    # --------------------------------------------------------
+    # API KEYS
+    # --------------------------------------------------------
+
+    gemini_api_key: str = ""
+    hf_api_key: str = ""
+
+    # --------------------------------------------------------
+    # Hugging Face
+    # --------------------------------------------------------
+
+    hf_model_id: str = (
+        "stabilityai/stable-diffusion-xl-base-1.0"
+    )
+
+    hf_timeout_seconds: int = 120
+
+    diffusion_steps: int = 20
+
+    # --------------------------------------------------------
+    # Directories
+    # --------------------------------------------------------
+
+    static_dir: Path = (
+        BASE_DIR / "static"
+    )
+
+    panels_dir: Path = (
+        BASE_DIR / "static" / "panels"
+    )
+
+    exports_dir: Path = (
+        BASE_DIR / "static" / "exports"
+    )
+
+    # --------------------------------------------------------
+    # Application
+    # --------------------------------------------------------
+
+    app_name: str = "ComicCraft"
+
+    class Config:
+        env_file = ".env"
+        extra = "ignore"
+
+
+@lru_cache
+def get_settings() -> Settings:
+
+    settings = Settings()
+
+    settings.static_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    settings.panels_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    settings.exports_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    return settings

@@ -1,0 +1,19 @@
+import os
+
+PANELS_DIR = "static/panels"
+
+# Create the folder if it doesn't exist
+os.makedirs(PANELS_DIR, exist_ok=True)
+
+
+def save_panel(image, panel_number):
+    """
+    Save a generated comic panel image.
+    """
+
+    filename = f"panel_{panel_number}.png"
+    filepath = os.path.join(PANELS_DIR, filename)
+
+    image.save(filepath)
+
+    return filepath

@@ -1,0 +1,172 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Export Successful - ComicCraft</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #f4f4f8;
+        }
+
+        .success-container {
+            width: 90%;
+            max-width: 550px;
+            background: white;
+            padding: 45px 35px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #e8f8ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            color: #333;
+            font-size: 30px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .download-btn {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: #5747c7;
+        }
+
+        .preview-btn {
+            background: #eeeeee;
+            color: #333;
+        }
+
+        .preview-btn:hover {
+            background: #dddddd;
+        }
+
+        .home-btn {
+            margin-top: 20px;
+            display: block;
+            color: #6c5ce7;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .home-btn:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .success-container {
+                padding: 35px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="success-container">
+
+        <!-- Success Icon -->
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <!-- Message -->
+        <h1>Export Successful!</h1>
+
+        <p>
+            Your ComicCraft comic has been successfully
+            exported as a PDF.
+        </p>
+
+        <!-- Buttons -->
+        <div class="buttons">
+
+            <a
+                href="/static/exports/comiccraft_comic.pdf"
+                class="btn download-btn"
+                download
+            >
+                📥 Download PDF
+            </a>
+
+            <a
+                href="/comic-preview"
+                class="btn preview-btn"
+            >
+                👀 View Comic
+            </a>
+
+        </div>
+
+        <!-- Home -->
+        <a
+            href="/"
+            class="home-btn"
+        >
+            ← Create Another Comic
+        </a>
+
+    </div>
+
+</body>
+</html>
